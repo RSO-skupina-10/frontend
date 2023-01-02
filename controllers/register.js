@@ -4,7 +4,7 @@ const init = (req, res) => {
 };
 
 const register = (req, res) => {
-    res.redirect("/mainPerson");
+    res.redirect("/restaurants");
 };
 
 module.exports = {

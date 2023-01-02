@@ -5,7 +5,7 @@ const init = (req, res) => {
 };
 
 const login = (req, res) => {
-    res.render("mainPerson", {
+    res.render("restaurants", {
         title: "DeliveryApp",
     });
 };
