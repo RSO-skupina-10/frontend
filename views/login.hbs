@@ -23,16 +23,16 @@
             <div class="card-body p-5">
               <h2 class="text-center mb-5">DeliveryApp</h2>
                 <h5 class="text-uppercase text-center">Login into your account</h5>
-                <form name="register" method="post" action="/register">
+                <form name="register" method="post" action="/login">
 
                     <div class="form-outline mb-4">
                         <label class="form-label" for="username">Username</label>
-                        <input type="text" id="username" placeholder="Janez123" class="form-control form-control-lg" />
+                        <input type="text" name="username" placeholder="Janez123" class="form-control form-control-lg" />
                     </div>
 
                     <div class="form-outline mb-4">
-                        <label class="form-label" for="form3Example4cg">Password</label>
-                        <input type="password" id="form3Example4cg" class="form-control form-control-lg" />
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" name="password" class="form-control form-control-lg" />
                     </div>
 
                     {{#if errorExists}}

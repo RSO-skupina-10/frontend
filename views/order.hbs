@@ -48,10 +48,11 @@
     <div class="container-fluid h-75">
         <div class="row m-5 h-100">
             <div class="col-4 h-75 card">
-                <h3>Order 1</h3>
-                <p><b>Restaurant:</b> Restavracija 1 - Slovenska cesta 51</p>
-                <p><b>Customer:</b> Janez Novak - Večna pot 113</p>
-                {{!-- https://nominatim.openstreetmap.org/search/?q=dane+pri+divaci+24&postalcode=6215&format=json --}}
+                <h3>Order {{order.id}}</h3>
+                <p><b>Restaurant:</b> Restavracija {{restaurant.name}}</p>
+                <p id="locationRestaurant"></p>
+                <p><b>Customer:</b> {{customer.username}}</p>
+                <p id="locationCustomer"></p>
                 <p><b>Profit:</b> 6€ (2€ Restaurant + 2€ Bicycle + 2€ bad weather)</p>
                 <div class="container">
                     <div class="row">
@@ -90,6 +91,25 @@
 </style>
 
 <script>
+
+const restaurantData = {{{restaurantData}}}
+const customerData = {{{customerData}}}
+
+$(document).ready(function () {
+    (async () => {
+        document.getElementById("locationRestaurant").innerHTML = "<b>Location:</b> "+
+            await getLatLng(restaurantData["lat"], restaurantData["lng"]) ;
+        document.getElementById("locationCustomer").innerHTML = "<b>Location:</b> "+
+            await getLatLng(customerData["lat"], customerData["lng"]) ;
+    })()    //  async
+});
+
+async function getLatLng (lat, lng) {
+  const url =  "https://nominatim.openstreetmap.org/reverse?lat="+lat+"&lon="+lng+"&format=json"
+  let response = await fetch(url);
+  let data = await response.json();
+  return data["display_name"]
+}
 
 function startDelivery(id){
     const timerDiv = document.getElementById("timerDiv");
@@ -170,44 +190,12 @@ function drawMap(deliveryLocation){
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    const restaurantMarker = L.marker([46.0506238, 14.4725047], {icon: restaurantIcon}).addTo(map)
+    const restaurantMarker = L.marker([restaurantData["lat"], restaurantData["lng"]], {icon: restaurantIcon}).addTo(map)
         .bindPopup('Restaurant').openPopup();
-    const customerMarker = L.marker([46.067627, 14.541448], {icon: customerIcon}).addTo(map)
+    const customerMarker = L.marker([customerData["lat"], customerData["lng"]], {icon: customerIcon}).addTo(map)
         .bindPopup('Customer').openPopup();
     const deliveryMarker = L.marker([deliveryLocation.latitude, deliveryLocation.longitude], {icon: deliveryIcon}).addTo(map)
         .bindPopup('Your location').openPopup();
 }
 
-
-
-
-/*const circle = L.circle([51.508, -0.11], {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5,
-    radius: 500
-}).addTo(map).bindPopup('I am a circle.');
-
-const polygon = L.polygon([
-    [51.509, -0.08],
-    [51.503, -0.06],
-    [51.51, -0.047]
-]).addTo(map).bindPopup('I am a polygon.');
-
-
-const popup = L.popup()
-    .setLatLng([51.513, -0.09])
-    .setContent('I am a standalone popup.')
-    .openOn(map);
-
-
-function onMapClick(e) {
-    popup
-        .setLatLng(e.latlng)
-        .setContent(`You clicked the map at ${e.latlng.toString()}`)
-        .openOn(map);
-}
-
-map.on('click', onMapClick);
-*/
 </script>

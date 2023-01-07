@@ -50,14 +50,15 @@
         </div>
 
         <div class="row g-2">
-            <h3>Menu for Restaurant 1</h3>
+            <h3 class="restaurant" id={{restaurant.id}}>Menu for Restaurant: {{restaurant.name}}</h3>
             <div class="list-group">
+                {{#each meals}}
                 <label class="list-group-item mb-3">
-                    <h3 class="mealName" id="testName">Meal 1</h3>
-                    <p><b>Ingridients:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <h3 class="mealName" id={{this.name}}>{{this.name}}</h3>
+                    <p><b>Ingridients:</b> {{this.ingredients}}</p>
                     <div class="row">
                         <b class="col-sm-2">Price:</b>
-                        <p class="col-sm-2 mealPrice" id="10">10€</p>
+                        <p class="col-sm-2 mealPrice" id={{this.price}}>{{this.price}}€</p>
                     </div>
                     <form class="form-group row">
                         <label class="col-sm-2 col-form-label fw-bold" for="quantity">Quantity:</label>
@@ -66,35 +67,7 @@
                         </div>
                     </form>
                 </label>
-                <label class="list-group-item mb-3">
-                    <h3 class="mealName" id="testName2">Meal 2</h3>
-                    <p><b>Ingridients:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <div class="row">
-                        <b class="col-sm-2">Price:</b>
-                        <p class="col-sm-2 mealPrice" id="200">200€</p>
-                    </div>
-                    <form class="form-group row">
-                        <label class="col-sm-2 col-form-label fw-bold" for="quantity">Quantity:</label>
-                        <div class="col-sm-2">
-                            <input min="0" type="number" class="quantity" value="0" class="form-control" />
-                        </div>
-                    </form>
-                </label>
-                <label class="list-group-item mb-3">
-                    <h3 class="mealName" id="testName3">Meal 3</h3>
-                    <p><b>Ingridients:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <div class="row">
-                        <b class="col-sm-2">Price:</b>
-                        <p class="col-sm-2 mealPrice" id="30">30€</p>
-                    </div>
-                    <form class="form-group row">
-                        <label class="col-sm-2 col-form-label fw-bold" for="quantity">Quantity:</label>
-                        <div class="col-sm-2">
-                            <input min="0" type="number" class="quantity" value="0" class="form-control" />
-                        </div>
-                    </form>
-                </label>
-                
+                {{/each}}
             </div>
         </div>
         <div class="fixed-bottom">
@@ -138,7 +111,6 @@
             if (quantity > 0){
                 orderedItems.push(
                     {
-                        id: 1,
                         name: name,
                         price: price,
                         quantity: quantity
@@ -192,12 +164,20 @@
 
     function confirmOrder(){
         var req = new XMLHttpRequest();
+
+        const restaurantId = document.getElementsByClassName("restaurant")[0].id
+        const data = {
+            restaurantId: parseInt(restaurantId),
+            personId: 1,
+            status: 0
+        }
+
         req.open("POST", "/orders", true);
         req.setRequestHeader("Content-Type", "application/json");
         req.addEventListener("load", function () {
             window.location.assign('/restaurants')
         });
-        req.send(JSON.stringify(orderedItems));
+        req.send(JSON.stringify(data));
     }
 
 </script>

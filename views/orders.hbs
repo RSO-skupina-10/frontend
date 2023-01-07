@@ -41,38 +41,15 @@
         <div class="row g-2">
             <h3>Currently active orders</h3>
             <div class="list-group">
+                {{#each orders}}
                 <label class="list-group-item mb-3">
-                    <h3>Order 1</h3>
-                    <p><b>Restaurant:</b> Restavracija 1 - Slovenska cesta 51</p>
-                    <p><b>Customer:</b> Janez Novak - Večna pot 113</p>
-                    {{!-- https://nominatim.openstreetmap.org/search/?q=dane+pri+divaci+24&postalcode=6215&format=json --}}
+                    <h3>Order {{this.order.id}}</h3>
+                    <p><b>Restaurant:</b> Restavracija {{this.restaurant.name}}</p>
+                    <p><b>Customer:</b> {{this.customer.username}}</p>
                     <p><b>Profit:</b> 6€ (2€ Restaurant + 2€ Bicycle + 2€ bad weather)</p>
-                    <a class="btn btn-info float-end" href="/orders/1">Select</a>
+                    <a class="btn btn-info float-end" href="/orders/{{this.order.id}}">Select</a>
                 </label>
-                <label class="list-group-item mb-3">
-                    <h3>Order 1</h3>
-                    <p><b>Restaurant:</b> Restavracija 1 - Slovenska cesta 51</p>
-                    <p><b>Customer:</b> Janez Novak - Večna pot 113</p>
-                    {{!-- https://nominatim.openstreetmap.org/search/?q=dane+pri+divaci+24&postalcode=6215&format=json --}}
-                    <p><b>Profit:</b> 6€ (2€ Restaurant + 2€ Bicycle + 2€ bad weather)</p>
-                    <a class="btn btn-info float-end" href="/orders/1">Select</a>
-                </label>
-                <label class="list-group-item mb-3">
-                    <h3>Order 1</h3>
-                    <p><b>Restaurant:</b> Restavracija 1 - Slovenska cesta 51</p>
-                    <p><b>Customer:</b> Janez Novak - Večna pot 113</p>
-                    {{!-- https://nominatim.openstreetmap.org/search/?q=dane+pri+divaci+24&postalcode=6215&format=json --}}
-                    <p><b>Profit:</b> 6€ (2€ Restaurant + 2€ Bicycle + 2€ bad weather)</p>
-                    <a class="btn btn-info float-end" href="/orders/1">Select</a>
-                </label>
-                <label class="list-group-item mb-3">
-                    <h3>Order 1</h3>
-                    <p><b>Restaurant:</b> Restavracija 1 - Slovenska cesta 51</p>
-                    <p><b>Customer:</b> Janez Novak - Večna pot 113</p>
-                    {{!-- https://nominatim.openstreetmap.org/search/?q=dane+pri+divaci+24&postalcode=6215&format=json --}}
-                    <p><b>Profit:</b> 6€ (2€ Restaurant + 2€ Bicycle + 2€ bad weather)</p>
-                    <a class="btn btn-info float-end" href="/orders/1" >Select</a>
-                </label>
+                {{/each}}
             </div>
         </div>
     </div>
