@@ -1,6 +1,6 @@
 var apiParams = {
-    // server: "http://20.124.146.131/",
-    server: "http://localhost:8084",
+    server: "http://20.124.146.131",
+    // server: "http://localhost:8084",
 };
 
 const axios = require("axios").create({
@@ -15,7 +15,8 @@ const init = (req, res) => {
 
 const register = (req, res) => {
     axios
-        .post("/v1/auth", {
+        // .post("/v1/auth", {
+        .post("/auth-service/v1/auth", {
             username: req.body["username"],
             password: req.body["password"],
             role: req.body["role"],

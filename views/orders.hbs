@@ -46,7 +46,7 @@
                     <h3>Order {{this.order.id}}</h3>
                     <p><b>Restaurant:</b> Restavracija {{this.restaurant.name}}</p>
                     <p><b>Customer:</b> {{this.customer.username}}</p>
-                    <p><b>Profit:</b> 6€ (2€ Restaurant + 2€ Bicycle + 2€ bad weather)</p>
+                    <p><b>Profit:</b> 1€ + {{this.weatherBonus}}€ (Weather Bonus)</p>
                     <a class="btn btn-info float-end" href="/orders/{{this.order.id}}">Select</a>
                 </label>
                 {{/each}}
