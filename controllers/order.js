@@ -31,16 +31,14 @@ const axiosWeather = require("axios").create({
 
 const init = async (req, res) => {
     const allOrders = await getAllOrders();
-    const activeOrders = allOrders.data.filter((el) => el.orderStatus == 0);
+    const activeOrders = allOrders.data.filter((el) => el.status == 0);
 
     const output = [];
     for (i = 0; i < activeOrders.length; i++) {
         var currRestaurant = await getRestaurantDetails(
-            activeOrders[i].orderRestaurantId
+            activeOrders[i].restaurantId
         );
-        var currCustomer = await getCustomerDetails(
-            activeOrders[i].orderPersonId
-        );
+        var currCustomer = await getCustomerDetails(activeOrders[i].personId);
         var currWeatherBonus = await getWeatherBonus(
             currCustomer.data["lat"],
             currCustomer.data["lng"]
@@ -77,8 +75,8 @@ const specificOrder = async (req, res) => {
     const orderId = req["params"]["idOrder"];
 
     const order = await getSpecificOrder(orderId);
-    const restaurant = await getRestaurantDetails(order.data.orderRestaurantId);
-    const customer = await getCustomerDetails(order.data.orderPersonId);
+    const restaurant = await getRestaurantDetails(order.data.restaurantId);
+    const customer = await getCustomerDetails(order.data.personId);
     const weatherBonus = await getWeatherBonus(
         customer.data["lat"],
         customer.data["lng"]
