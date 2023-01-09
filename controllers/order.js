@@ -26,7 +26,7 @@ const axiosCustomer = require("axios").create({
 const axiosWeather = require("axios").create({
     // baseURL: apiParams.serverWeather,
     baseURL: apiParams.server,
-    timeout: 5000,
+    timeout: 15000,
 });
 
 const init = async (req, res) => {
